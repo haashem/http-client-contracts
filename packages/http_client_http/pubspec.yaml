@@ -1,0 +1,21 @@
+name: http_client_http
+description: package:http adapter for the http_client_core contract.
+version: 0.1.0
+homepage: https://github.com/hashem/http_client
+repository: https://github.com/hashem/http_client
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  http: ^1.2.2
+  http_client_core: ^0.1.0
+
+dependency_overrides:
+  http_client_core:
+    path: ../http_client_core
+
+dev_dependencies:
+  lint: ^2.3.0
+  mocktail: ^1.0.4
+  test: ^1.25.8
