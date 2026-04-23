@@ -81,19 +81,27 @@ void runHttpClientContractSuite({
 
       expect(response.statusCode, io.HttpStatus.ok);
       expect(response.isSuccess, isTrue);
-      expect(response.bodyAsJson<Map<String, dynamic>>(),
-          <String, dynamic>{'status': 'ok'});
+      expect(
+        response.bodyAsJson<Map<String, dynamic>>(),
+        <String, dynamic>{'status': 'ok'},
+      );
     });
 
     test('applies default content-type for json body', () async {
       final response = await client.send(
-        HttpRequest.post(uri('/echo'),
-            body: HttpRequestBody.json(<String, Object?>{'k': 'v'})),
+        HttpRequest.post(
+          uri('/echo'),
+          body: HttpRequestBody.json(
+            <String, Object?>{'k': 'v'},
+          ),
+        ),
       );
 
       expect(response.bodyAsString(), '{"k":"v"}');
-      expect(response.headers['x-seen-content-type'],
-          startsWith('application/json'));
+      expect(
+        response.headers['x-seen-content-type'],
+        startsWith('application/json'),
+      );
     });
 
     test('sendStream returns stream data', () async {
@@ -105,8 +113,10 @@ void runHttpClientContractSuite({
 
     test('maps timeout to HttpTimeoutException', () {
       final future = client.send(
-        HttpRequest.get(uri('/slow'),
-            timeout: const Duration(milliseconds: 15)),
+        HttpRequest.get(
+          uri('/slow'),
+          timeout: const Duration(milliseconds: 15),
+        ),
       );
 
       expect(future, throwsA(isA<HttpTimeoutException>()));

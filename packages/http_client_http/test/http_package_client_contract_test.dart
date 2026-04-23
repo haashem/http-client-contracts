@@ -1,6 +1,5 @@
+import 'package:http_client_contract_test/http_client_contract_test.dart';
 import 'package:http_client_http/http_client_http.dart';
-
-import 'support/http_client_contract_suite.dart';
 
 void main() {
   runHttpClientContractSuite(
