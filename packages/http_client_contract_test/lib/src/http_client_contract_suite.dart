@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 
-import 'package:http_client_core/http_client_core.dart';
+import 'package:http_client_contracts/http_client_contracts.dart';
 import 'package:test/test.dart';
 
 typedef ClientFactory = FutureOr<HttpClient> Function();

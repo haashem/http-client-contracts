@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'package:http_client_core/http_client_core.dart';
+import 'package:http_client_contracts/http_client_contracts.dart';
 
 class HttpPackageClient implements HttpClient {
   final http.Client _client;

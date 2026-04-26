@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:http_client_core/src/http_multipart_file.dart';
+import 'package:http_client_contracts/src/http_multipart_file.dart';
 
 sealed class HttpRequestBody {
   const HttpRequestBody();

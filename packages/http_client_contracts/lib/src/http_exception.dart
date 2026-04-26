@@ -1,4 +1,4 @@
-import 'package:http_client_core/src/http_request.dart';
+import 'package:http_client_contracts/src/http_request.dart';
 
 sealed class HttpException implements Exception {
   final String message;

@@ -1,6 +1,6 @@
 # http_client_http
 
-`package:http` adapter for `http_client_core`.
+`package:http` adapter for `http_client_contracts`.
 
 ## Usage
 
@@ -11,4 +11,4 @@ final HttpClient client = HttpPackageClient();
 final response = await client.get(Uri.parse('https://example.com'));
 ```
 
-Use this package in composition/infrastructure layers. Keep feature code dependent on `http_client_core` only.
+Use this package in composition/infrastructure layers. Keep feature code dependent on `http_client_contracts` only.

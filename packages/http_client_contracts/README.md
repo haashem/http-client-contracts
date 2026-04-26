@@ -1,4 +1,4 @@
-# http_client_core
+# http_client_contracts
 
 Core HTTP abstractions designed for dependency-inverted networking in Dart and Flutter.
 

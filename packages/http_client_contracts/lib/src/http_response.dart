@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:http_client_core/src/http_request.dart';
+import 'package:http_client_contracts/src/http_request.dart';
 
 class HttpResponse {
   final HttpRequest request;

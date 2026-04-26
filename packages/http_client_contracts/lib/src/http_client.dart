@@ -1,8 +1,8 @@
-import 'package:http_client_core/src/http_cancellation_token.dart';
-import 'package:http_client_core/src/http_request.dart';
-import 'package:http_client_core/src/http_request_body.dart';
-import 'package:http_client_core/src/http_response.dart';
-import 'package:http_client_core/src/http_stream_response.dart';
+import 'package:http_client_contracts/src/http_cancellation_token.dart';
+import 'package:http_client_contracts/src/http_request.dart';
+import 'package:http_client_contracts/src/http_request_body.dart';
+import 'package:http_client_contracts/src/http_response.dart';
+import 'package:http_client_contracts/src/http_stream_response.dart';
 
 abstract interface class HttpClient {
   Future<HttpResponse> send(

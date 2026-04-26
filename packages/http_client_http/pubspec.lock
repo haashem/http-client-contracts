@@ -120,10 +120,10 @@ packages:
       relative: true
     source: path
     version: "0.1.0"
-  http_client_core:
+  http_client_contracts:
     dependency: "direct main"
     description:
-      path: "../http_client_core"
+      path: "../http_client_contracts"
       relative: true
     source: path
     version: "0.1.0"

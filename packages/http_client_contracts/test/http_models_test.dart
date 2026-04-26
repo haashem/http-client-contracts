@@ -1,4 +1,4 @@
-import 'package:http_client_core/http_client_core.dart';
+import 'package:http_client_contracts/http_client_contracts.dart';
 import 'package:test/test.dart';
 
 void main() {

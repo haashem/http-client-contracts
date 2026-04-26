@@ -1,5 +1,5 @@
-import 'package:http_client_core/src/http_method.dart';
-import 'package:http_client_core/src/http_request_body.dart';
+import 'package:http_client_contracts/src/http_method.dart';
+import 'package:http_client_contracts/src/http_request_body.dart';
 
 class HttpRequest {
   final HttpMethod method;
