@@ -5,7 +5,9 @@ homepage: https://github.com/hashem/http_client
 repository: https://github.com/hashem/http_client
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
+
+resolution: workspace
 
 dev_dependencies:
   lint: ^2.3.0

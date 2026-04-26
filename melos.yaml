@@ -1,4 +1,0 @@
-name: http_client_workspace
-
-packages:
-  - packages/**

@@ -1,0 +1,10 @@
+name: http_client_workspace
+publish_to: none
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+workspace:
+  - packages/http_client_contracts
+  - packages/http_client_contract_test
+  - packages/http_client_http

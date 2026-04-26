@@ -8,10 +8,17 @@ This repository is now a multi-package workspace:
 
 ## Local development
 
+Resolve the whole workspace once:
+
+```bash
+dart pub get
+dart pub workspace list
+```
+
 Run checks package-by-package:
 
 ```bash
-cd packages/http_client_contracts && dart pub get && dart analyze && dart test
-cd packages/http_client_contract_test && dart pub get && dart analyze && dart test
-cd packages/http_client_http && dart pub get && dart analyze && dart test
+(cd packages/http_client_contracts && dart analyze && dart test)
+(cd packages/http_client_contract_test && dart analyze && dart test)
+(cd packages/http_client_http && dart analyze && dart test)
 ```
