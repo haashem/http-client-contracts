@@ -90,4 +90,40 @@ void main() {
       ),
     );
   });
+
+  test('builds streamed request with content-length and content-type',
+      () async {
+    when(() => inner.send(any())).thenAnswer(
+      (_) async => http.StreamedResponse(const Stream<List<int>>.empty(), 200),
+    );
+
+    final request = HttpRequest.post(
+      url,
+      body: HttpRequestBody.stream(
+        Stream<List<int>>.fromIterable(
+          <List<int>>[
+            <int>[1, 2],
+            <int>[3, 4],
+          ],
+        ),
+        contentLength: 4,
+        contentType: 'application/octet-stream',
+      ),
+    );
+
+    await client.sendStream(request);
+
+    final captured = verify(() => inner.send(captureAny())).captured.single
+        as http.StreamedRequest;
+
+    expect(captured.method, 'POST');
+    expect(captured.contentLength, 4);
+    expect(captured.headers['Content-Type'], 'application/octet-stream');
+  });
+
+  test('close delegates to inner client', () {
+    client.close();
+
+    verify(() => inner.close()).called(1);
+  });
 }

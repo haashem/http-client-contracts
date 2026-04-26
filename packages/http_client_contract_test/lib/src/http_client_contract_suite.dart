@@ -51,6 +51,22 @@ void runHttpClientContractSuite({
             incoming.response.add(<int>[3, 4]);
             await incoming.response.close();
 
+          case '/stream-cancel':
+            incoming.response.statusCode = io.HttpStatus.ok;
+            incoming.response.add(<int>[1, 2]);
+            await incoming.response.flush();
+            await Future<void>.delayed(const Duration(milliseconds: 120));
+            incoming.response.add(<int>[3, 4]);
+            await incoming.response.close();
+
+          case '/stream-timeout':
+            incoming.response.statusCode = io.HttpStatus.ok;
+            incoming.response.add(<int>[1, 2]);
+            await incoming.response.flush();
+            await Future<void>.delayed(const Duration(milliseconds: 120));
+            incoming.response.add(<int>[3, 4]);
+            await incoming.response.close();
+
           case '/slow':
             await Future<void>.delayed(const Duration(milliseconds: 120));
             incoming.response.statusCode = io.HttpStatus.ok;
@@ -104,6 +120,65 @@ void runHttpClientContractSuite({
       );
     });
 
+    test('applies default content-type for text body', () async {
+      final response = await client.send(
+        HttpRequest.post(
+          uri('/echo'),
+          body: HttpRequestBody.text('hello'),
+        ),
+      );
+
+      expect(response.bodyAsString(), 'hello');
+      expect(
+        response.headers['x-seen-content-type'],
+        startsWith('text/plain'),
+      );
+    });
+
+    test('applies default content-type for form body', () async {
+      final response = await client.send(
+        HttpRequest.post(
+          uri('/echo'),
+          body: HttpRequestBody.formUrlEncoded(
+            <String, String>{'a': '1', 'b': '2'},
+          ),
+        ),
+      );
+
+      expect(
+        response.headers['x-seen-content-type'],
+        startsWith('application/x-www-form-urlencoded'),
+      );
+      expect(response.bodyAsString(), contains('a=1'));
+      expect(response.bodyAsString(), contains('b=2'));
+    });
+
+    test('supports StreamRequestBody', () async {
+      final bodyStream = Stream<List<int>>.fromIterable(
+        <List<int>>[
+          <int>[65, 66],
+          <int>[67, 68],
+        ],
+      );
+
+      final response = await client.send(
+        HttpRequest.post(
+          uri('/echo'),
+          body: HttpRequestBody.stream(
+            bodyStream,
+            contentLength: 4,
+            contentType: 'application/octet-stream',
+          ),
+        ),
+      );
+
+      expect(response.bodyBytes, <int>[65, 66, 67, 68]);
+      expect(
+        response.headers['x-seen-content-type'],
+        'application/octet-stream',
+      );
+    });
+
     test('sendStream returns stream data', () async {
       final streamed = await client.sendStream(HttpRequest.get(uri('/stream')));
       final bytes = await streamed.bodyBytes();
@@ -131,6 +206,54 @@ void runHttpClientContractSuite({
       );
 
       expect(future, throwsA(isA<HttpCancelledException>()));
+    });
+
+    test('throws HttpCancelledException for in-flight stream cancellation',
+        () async {
+      final token = HttpCancellationToken();
+      final streamed = await client.sendStream(
+        HttpRequest.get(uri('/stream-cancel')),
+        cancellationToken: token,
+      );
+
+      final future = streamed.bodyBytes();
+      unawaited(
+        Future<void>.delayed(
+          const Duration(milliseconds: 20),
+          () => token.cancel('during stream'),
+        ),
+      );
+
+      await expectLater(future, throwsA(isA<HttpCancelledException>()));
+    });
+
+    test('throws HttpCancelledException for in-flight send cancellation',
+        () async {
+      final token = HttpCancellationToken();
+      final future = client.send(
+        HttpRequest.get(uri('/stream-cancel')),
+        cancellationToken: token,
+      );
+
+      unawaited(
+        Future<void>.delayed(
+          const Duration(milliseconds: 20),
+          () => token.cancel('during send'),
+        ),
+      );
+
+      await expectLater(future, throwsA(isA<HttpCancelledException>()));
+    });
+
+    test('maps body-read timeout to HttpTimeoutException for send', () async {
+      final future = client.send(
+        HttpRequest.get(
+          uri('/stream-timeout'),
+          timeout: const Duration(milliseconds: 30),
+        ),
+      );
+
+      await expectLater(future, throwsA(isA<HttpTimeoutException>()));
     });
 
     test('maps connection failures to HttpNetworkException', () {

@@ -114,9 +114,8 @@ class HttpPackageClient implements HttpClient {
     required HttpRequest request,
     HttpCancellationToken? cancellationToken,
   }) async {
-    final chunks = <int>[];
-
-    try {
+    final readFuture = () async {
+      final chunks = <int>[];
       await for (final chunk in _withCancellation(
         stream,
         request: request,
@@ -124,6 +123,24 @@ class HttpPackageClient implements HttpClient {
       )) {
         chunks.addAll(chunk);
       }
+      return Uint8List.fromList(chunks);
+    }();
+
+    final timeout = request.timeout;
+    final guardedReadFuture = timeout == null
+        ? readFuture
+        : readFuture.timeout(
+            timeout,
+            onTimeout: () {
+              throw HttpTimeoutException(
+                timeout: timeout,
+                request: request,
+              );
+            },
+          );
+
+    try {
+      return await guardedReadFuture;
     } on HttpException {
       rethrow;
     } catch (error, stackTrace) {
@@ -134,8 +151,6 @@ class HttpPackageClient implements HttpClient {
         causeStackTrace: stackTrace,
       );
     }
-
-    return Uint8List.fromList(chunks);
   }
 
   Stream<List<int>> _withCancellation(
