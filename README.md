@@ -1,33 +1,80 @@
-# HTTP Client Workspace
+# HTTP Client Monorepo
 
-This repository is now a multi-package workspace:
+Transport-agnostic HTTP contracts and concrete adapters for Dart and Flutter.
 
-- `packages/http_client_contracts`: transport-agnostic contracts.
-- `packages/http_client_dio`: `dio` adapter for the contracts package.
-- `packages/http_client_http`: `package:http` adapter for the contracts package.
-- `packages/http_client_contract_test`: shared adapter conformance tests.
-- `example`: Flutter UI example with runtime transport switch (`package:http` vs `dio`).
+## Packages
 
-## Local development
+| Package | Purpose |
+| --- | --- |
+| [`http_client_contracts`](packages/http_client_contracts) | Core transport-agnostic contract (`HttpClient`, request/response models, exceptions). |
+| [`http_client_dio`](packages/http_client_dio) | `dio` adapter that implements `HttpClient`. |
+| [`http_client_http`](packages/http_client_http) | `package:http` adapter that implements `HttpClient`. |
+| [`http_client_contract_test`](packages/http_client_contract_test) | Shared conformance test suite for adapter packages. |
+| [`example`](example) | Flutter example app using the contracts and adapters. |
 
-Resolve the whole workspace once:
+## Architecture
+
+Keep feature/business code dependent on `http_client_contracts` only.
+Pick and wire one concrete adapter at your composition root.
+
+```mermaid
+flowchart BT
+  subgraph App["Mobile/Web App"]
+    CR["Composition Root"]
+    subgraph Mods["Feature Modules"]
+      A["Auth"]
+      F["Feed"]
+      P["Profile"]
+    end
+  end
+
+  CP["Contract Package<br/>http_client_contracts<br/>(HttpClient interface)"]
+  AD["Adapter Package<br/>http_client_dio or http_client_http"]
+  NET["External Network / APIs"]
+
+  A -->|"depends on"| CP
+  F -->|"depends on"| CP
+  P -->|"depends on"| CP
+  AD -->|"implements interface"| CP
+
+  CR -->|"creates/wires"| AD
+  AD --> NET
+```
+
+## Quick Start
 
 ```bash
 dart pub get
-dart pub workspace list
 ```
 
-Run checks package-by-package:
+Use contracts in app/business layers:
+
+```dart
+import 'package:http_client_contracts/http_client_contracts.dart';
+```
+
+Wire one adapter in composition/infrastructure:
+
+```dart
+import 'package:http_client_dio/http_client_dio.dart';
+
+final HttpClient client = DioHttpClient();
+```
+
+## Development
+
+Run analysis/tests per package while working:
 
 ```bash
-(cd packages/http_client_contracts && dart analyze && dart test)
-(cd packages/http_client_contract_test && dart analyze && dart test)
-(cd packages/http_client_dio && dart analyze && dart test)
-(cd packages/http_client_http && dart analyze && dart test)
+dart analyze
+dart test
 ```
 
-Run the Flutter app:
+For adapter behavior validation, use `http_client_contract_test` in adapter package tests.
 
-```bash
-(cd example && flutter pub get && flutter run)
-```
+## Package Docs
+
+- Contracts: [`packages/http_client_contracts/README.md`](packages/http_client_contracts/README.md)
+- Dio adapter: [`packages/http_client_dio/README.md`](packages/http_client_dio/README.md)
+- package:http adapter: [`packages/http_client_http/README.md`](packages/http_client_http/README.md)
+- Contract test suite: [`packages/http_client_contract_test/README.md`](packages/http_client_contract_test/README.md)
