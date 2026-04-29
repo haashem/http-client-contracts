@@ -79,12 +79,14 @@ class DioHttpClient implements HttpClient {
       final responseHeaders = response.headers.map.map(
         (String key, List<String> values) => MapEntry(key, values.join(',')),
       );
+      final contentLength = responseBody.contentLength;
+      final normalizedContentLength = contentLength >= 0 ? contentLength : null;
 
       return HttpStreamResponse(
         request: request,
         statusCode: response.statusCode ?? 0,
         headers: responseHeaders,
-        contentLength: responseBody.contentLength,
+        contentLength: normalizedContentLength,
         stream: _withCancellation(
           responseBody.stream,
           request: request,

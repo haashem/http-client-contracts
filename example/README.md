@@ -8,7 +8,7 @@ Feature and data code depend only on the contract package. The concrete transpor
 is selected in composition root and can be switched at runtime:
 
 - `HttpPackageClient` (`package:http` adapter)
-- `DioHttpClient` (Dio-based adapter implemented in this example)
+- `DioHttpClient` (`http_client_dio` adapter package)
 
 ## Architecture
 

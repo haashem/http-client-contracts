@@ -7,5 +7,6 @@ environment:
 workspace:
   - packages/http_client_contracts
   - packages/http_client_contract_test
+  - packages/http_client_dio
   - packages/http_client_http
   - example

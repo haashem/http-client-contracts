@@ -33,7 +33,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dio: ^5.9.0
+  http_client_dio:
+    path: ../packages/http_client_dio
   http_client_contracts:
     path: ../packages/http_client_contracts
   http_client_http:

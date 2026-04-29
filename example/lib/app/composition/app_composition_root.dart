@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:http_client_dio/http_client_dio.dart';
 import 'package:http_client_http/http_client_http.dart';
 
 import '../../features/auth/infrastructure/auth_service.dart';
@@ -9,7 +9,6 @@ import '../../shared/network/decorators/auth_http_client.dart';
 import '../../shared/network/decorators/flaky_http_client.dart';
 import '../../shared/network/decorators/logging_http_client.dart';
 import '../../shared/network/decorators/retry_http_client.dart';
-import '../../shared/network/transports/dio_http_client.dart';
 import 'composed_dependencies.dart';
 import 'transport_mode.dart';
 
@@ -82,7 +81,7 @@ class AppCompositionRoot {
       case TransportMode.packageHttp:
         return HttpPackageClient();
       case TransportMode.dio:
-        return DioHttpClient(dio: Dio());
+        return DioHttpClient();
     }
   }
 }
