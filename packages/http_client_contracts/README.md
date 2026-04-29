@@ -12,31 +12,7 @@ This package defines the HTTP contract your code should depend on, while concret
 - Add cross-cutting behavior (retry, auth, logging) without coupling to one HTTP library.
 
 
-```mermaid
-flowchart BT
-  subgraph App["Mobile/Web App"]
-    CR["Composition Root"]
-    subgraph Mods["Feature Modules"]
-      A["Auth"]
-      F["Feed"]
-      P["Profile"]
-    end
-  end
-
-  CP["Contract Package<br/>http_client_contracts<br/>(HttpClient interface)"]
-  AD["Adapter Package<br/>http_client_dio<br/>(DioHttpClient)"]
-  NET["External Network / APIs"]
-
-  A -->|"depends on"| CP
-  F -->|"depends on"| CP
-  P -->|"depends on"| CP
-  AD -->|"implements interface"| CP
-
-  CR -->|"creates/wires"| AD
-  AD --> NET
-
-  linkStyle 3 stroke-dasharray: 10 8
-```
+<img src="https://github.com/haashem/http-client-contracts/blob/main/packages/http_client_contracts/screenshots/usage-diagram.png?raw=true" alt="HTTP client usage diagram" width="900">
 
 
 ## What You Get

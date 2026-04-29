@@ -4,13 +4,13 @@ Transport-agnostic HTTP contracts and concrete adapters for Dart and Flutter.
 
 ## Packages
 
-| Package | Purpose |
-| --- | --- |
-| [`http_client_contracts`](packages/http_client_contracts) | Core transport-agnostic contract (`HttpClient`, request/response models, exceptions). |
-| [`http_client_dio`](packages/http_client_dio) | `dio` adapter that implements `HttpClient`. |
-| [`http_client_http`](packages/http_client_http) | `package:http` adapter that implements `HttpClient`. |
-| [`http_client_contract_test`](packages/http_client_contract_test) | Shared conformance test suite for adapter packages. |
-| [`example`](example) | Flutter example app using the contracts and adapters. |
+| Package                                                           | Purpose                                                                               |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [`http_client_contracts`](packages/http_client_contracts)         | Core transport-agnostic contract (`HttpClient`, request/response models, exceptions). |
+| [`http_client_dio`](packages/http_client_dio)                     | `dio` adapter that implements `HttpClient`.                                           |
+| [`http_client_http`](packages/http_client_http)                   | `package:http` adapter that implements `HttpClient`.                                  |
+| [`http_client_contract_test`](packages/http_client_contract_test) | Shared conformance test suite for adapter packages.                                   |
+| [`example`](example)                                              | Flutter example app using the contracts and adapters.                                 |
 
 ## Architecture
 
@@ -29,7 +29,7 @@ flowchart BT
   end
 
   CP["Contract Package<br/>http_client_contracts<br/>(HttpClient interface)"]
-  AD["Adapter Package<br/>http_client_dio or http_client_http"]
+  AD["Adapter Package<br/>http_client_dio<br/>(DioHttpClient)"]
   NET["External Network / APIs"]
 
   A -->|"depends on"| CP
@@ -39,6 +39,8 @@ flowchart BT
 
   CR -->|"creates/wires"| AD
   AD --> NET
+
+  linkStyle 3 stroke-dasharray: 10 8
 ```
 
 ## Quick Start
