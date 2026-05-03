@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http_client_contracts/http_client_contracts.dart';
 import 'package:http_client_http/http_client_http.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
