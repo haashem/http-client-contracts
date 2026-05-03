@@ -1,8 +1,8 @@
 name: http_client_contract_test
 description: Shared HTTP client contract tests for adapter packages.
 version: 0.1.0
-homepage: https://github.com/hashem/http_client
-repository: https://github.com/hashem/http_client
+homepage: https://github.com/haashem/http-client-contracts
+repository: https://github.com/haashem/http-client-contracts/tree/main/packages/http_client_contract_test
 
 environment:
   sdk: ">=3.6.0 <4.0.0"

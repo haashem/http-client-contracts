@@ -1,8 +1,8 @@
 name: http_client_dio
 description: Dio adapter for the http_client_contracts contract.
-version: 0.1.0
-homepage: https://github.com/hashem/http_client
-repository: https://github.com/hashem/http_client
+version: 0.1.1
+homepage: https://github.com/haashem/http-client-contracts
+repository: https://github.com/haashem/http-client-contracts/blob/main/packages/http_client_dio
 
 environment:
   sdk: ">=3.6.0 <4.0.0"
