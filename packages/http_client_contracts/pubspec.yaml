@@ -1,6 +1,6 @@
 name: http_client_contracts
 description: Transport-agnostic HTTP contracts for Dart and Flutter.
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/hashem/http_client
 repository: https://github.com/hashem/http_client
 

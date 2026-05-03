@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Update readme to include adapter packages links
+
 ## 0.1.2
 
 - Update readme to use image diagram

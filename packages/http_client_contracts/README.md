@@ -36,8 +36,8 @@ The main interface is `HttpClient`:
 `http_client_contracts` provides interfaces and models only.
 To send real requests, plug an adapter package into your app's composition root:
 
-- [`http_client_http`](../http_client_http) (`package:http`)
-- [`http_client_dio`](../http_client_dio) (`dio`)
+- [`http_client_http`](https://pub.dev/packages/http_client_http) (`package:http`)
+- [`http_client_dio`](https://pub.dev/packages/http_client_dio) (`dio`)
 
 Basic request:
 
