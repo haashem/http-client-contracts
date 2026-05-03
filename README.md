@@ -58,6 +58,7 @@ import 'package:http_client_contracts/http_client_contracts.dart';
 Wire one adapter in composition/infrastructure:
 
 ```dart
+import 'package:http_client_contracts/http_client_contracts.dart';
 import 'package:http_client_dio/http_client_dio.dart';
 
 final HttpClient client = DioHttpClient();
