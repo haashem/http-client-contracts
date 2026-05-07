@@ -1,8 +1,8 @@
 name: http_client_http
 description: package:http adapter for the http_client_contracts contract.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/haashem/http-client-contracts
-repository: https://github.com/haashem/http-client-contracts/blob/main/packages/http_client_http
+repository: https://github.com/haashem/http-client-contracts/tree/main/packages/http_client_http
 
 environment:
   sdk: ">=3.6.0 <4.0.0"

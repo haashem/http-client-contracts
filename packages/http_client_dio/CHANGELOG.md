@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Update repository link
+
 ## 0.1.1
 
 - Update homepage and repository links
